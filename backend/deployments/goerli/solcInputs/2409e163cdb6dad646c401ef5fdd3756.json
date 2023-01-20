@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/FakeNFTMarketplace.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ncontract FakeNFTMarketplace {\n    mapping(uint256 => address) public tokens;\n    uint256 nftPrice = 0.01 ether;\n\n    function purchase(uint256 _tokenId) public payable {\n        require(nftPrice == msg.value, \"This Nft costs 0.1 ether\");\n        tokens[_tokenId] = msg.sender;\n    }\n\n    function getPrice() public view returns (uint256) {\n        return nftPrice;\n    }\n\n    function available(uint256 _tokenId) external view returns (bool) {\n        if (tokens[_tokenId] == address(0)) {\n            return true;\n        }\n        return false;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
